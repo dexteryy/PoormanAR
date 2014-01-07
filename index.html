@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>@@appname</title>
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="toolbar">
+    <input type="button" value="Detect" id="detect">
+    <input type="number" max="255" id="optR">
+    <input type="number" max="255" id="optG">
+    <input type="number" max="255" id="optB">
+    <input type="number" max="255" id="optRG">
+    <input type="number" max="255" id="optGB">
+    <input type="number" max="255" id="optRB">
+    <input type="number" id="optT">
+</div>
+
+<div class="player">
+    <video id="cam"></video>
+    <canvas id="frame"></canvas>
+    <canvas id="overlay"></canvas>
+</div>
+
+<script src="js/vendor/oz.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

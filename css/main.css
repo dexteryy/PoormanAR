@@ -1,0 +1,65 @@
+
+html,body {
+  margin:0;
+  padding:0;
+}
+
+#cam {
+  width:100%;
+  height:100%;
+}
+
+#frame {
+  display:none;
+}
+
+#overlay {
+  position:absolute;
+  top:0;
+  left:0;
+}
+
+.toolbar {
+  position:fixed;
+  top:30px;
+  left:10px;
+  height:20px;
+  z-index:100;
+}
+
+.toolbar input[type="number"],
+.toolbar input[type="text"] {
+  height:20px;
+  line-height:20px;
+  border:none;
+  padding:0 10px;
+  width:40px;
+  font-size:14px;
+}
+
+.toolbar input[type="button"] {
+  height:20px;
+  line-height:20px;
+  padding:0 10px;
+  color:#666;
+  border:none;
+  background:#000;
+  opacity:0.8;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.toolbar input[type="button"]:hover {
+  background:#f60;
+  color:#fff;
+}
+
+.toolbar label {
+  display:none;
+}
+
+.player {
+  height:100%;
+  width:100%;
+  background:#000;
+}
