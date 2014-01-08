@@ -1,0 +1,39 @@
+.game {
+}
+
+.stage {
+  position: relative;
+  height: 720px;
+  width: 1024px;
+  background: #ccc;
+}
+
+.money {
+  position: absolute;
+  display: block;
+  background: black;
+  height: 30px;
+  width: 30px;
+}
+
+.money:after {
+  content: '钱';
+  color: #fff;
+  display: block;
+  position: absolute;
+}
+
+.player {
+  position: absolute;
+  display: block;
+  background: black;
+  height: 30px;
+  width: 80px;
+}
+
+.player:after {
+  content: '丐';
+  color: #fff;
+  display: block;
+  position: absolute;
+}
