@@ -48,7 +48,7 @@ define([
       this.lasttime = now
 
       this.sprits.forEach(function(sprit, i) {
-        sprit.update(dt)
+        sprit.update(dt / 1000)
         sprit.draw()
       })
     }

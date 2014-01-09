@@ -1,29 +1,32 @@
 .game {
+  position: absolute;
+  top: 0;
 }
 
 .stage {
-  position: relative;
+  position: absolute;
   height: 720px;
   width: 1024px;
-  background: #ccc;
+  cursor: none;
 }
 
-.money {
+.stage .money {
   position: absolute;
   display: block;
   background: black;
   height: 30px;
   width: 30px;
+  border-radius: 50%;
 }
 
-.money:after {
+.stage .money:after {
   content: '钱';
   color: #fff;
   display: block;
   position: absolute;
 }
 
-.player {
+.stage .player {
   position: absolute;
   display: block;
   background: black;
@@ -31,9 +34,19 @@
   width: 80px;
 }
 
-.player:after {
-  content: '丐';
+.stage .player:after {
+  content: '穷人';
   color: #fff;
   display: block;
   position: absolute;
+}
+
+.stage .player[level=well]:after {
+  content: '有钱人';
+}
+.stage .player[level=rich]:after {
+  content: '有好多钱';
+}
+.stage .player[level=tuhao]:after {
+  content: '土豪';
 }

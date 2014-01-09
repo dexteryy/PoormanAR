@@ -14,15 +14,21 @@ define([
     , y: 0
     , elem: $('.game .stage')
     }
+
   }
 
   _.mix(Game.prototype, {
     start: function() {
       this.mainLoop.start()
+      this.initScore()
     }
   , addSprit: function(name, sprit) {
       this.sprits[name] = sprit
       return this.mainLoop.addSprit(sprit)
+    }
+
+  , initScore: function() {
+      this.score = 0
     }
   })
 

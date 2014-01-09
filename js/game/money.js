@@ -5,13 +5,16 @@ define([
 ], function(_, $, game) {
   function Money() {
     this.x = game.stage.width / 2
-    this.y = 0
+    this.y = -30
     this.saveLastPos()
 
     this.collisions = []
 
     this.width = 30
     this.height = 30
+    this.vx = 0
+    this.vy = 50
+    this.g = 1.008
     this.elem = $('<span>', {
       'class': 'money'
     }).appendTo(game.stage.elem)
@@ -19,6 +22,7 @@ define([
 
   _.mix(Money.prototype, {
     update: function(dt) {
+      this.vy *= this.g
       this.saveLastPos()
       this.setPosition(dt)
       this.detect()
@@ -34,6 +38,7 @@ define([
       })
     }
   , destroy: function() {
+      if (!this.elem) {return}
       this.elem.remove()
       this.elem = null
     }
@@ -42,7 +47,8 @@ define([
       this.lastY = this.y
     }
   , setPosition: function(dt) {
-      this.y += dt / 100
+      this.y += this.vy * dt
+      this.x += this.vx * dt
     }
   , outOfrange: function() {
       return (this.x + this.width < 0
@@ -55,19 +61,19 @@ define([
         if(this.detectCollision(s)) {
           this.destroy()
           // Boom !
-          console.log('catched')
+          s.money += 10
         }
       }).bind(this))
     }
   , detectCollision: function(sprit) {
-      //console.log(sprit.x, sprit.y, this.x, this.y)
-      return (sprit.x < this.x
-        && sprit.x + sprit.width > this.x + this.width
-        && sprit.y < this.y + this.height
-        && sprit.y + sprit.height > this.y + this.height)
+      return (sprit.x < this.x + this.width / 2
+        && sprit.x + sprit.width > this.x + this.width / 2
+        && sprit.y < this.y + this.height / 2
+        && sprit.y + sprit.height > this.y + this.height
+        && this.vy - sprit.vy > - 10)
     }
-  , addCollision: function(sprit) {
-      this.collisions.push(sprit)
+  , addCollision: function() {
+      Array.prototype.push.apply(this.collisions, arguments)
     }
   })
 

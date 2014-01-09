@@ -6,8 +6,11 @@ require.config({
 require([
     'mo/lang',
     'dollar',
-    'mo/domready'
+    'mo/domready',
+    '../game/main'
 ], function(_, $){
+
+window.playerArea = window.playerArea || []
 
 var cav1 = $('#frame'),
     cav2 = $('#overlay'),
@@ -21,6 +24,7 @@ var cav1 = $('#frame'),
     opt_gb = 80,
     opt_rb = 40,
     opt_t = 40,
+    player_cnt = 2,
     w, h;
 
 navigator.webkitGetUserMedia({
@@ -145,7 +149,13 @@ function detect(){
     ctx2.clearRect(0, 0, w, h);
     ctx2.lineWidth = 5;
     ctx2.strokeStyle = "#0066ff";
-    areas.forEach(function(area){
+    areasS = areas.map(function(e) {
+      return (e[1] - e[0]) * (e[3] * e[2])
+    })
+
+    playerArea.length = 0
+    playerArea.push(areas[areasS.indexOf(Math.max.apply(Math, areasS))])
+    playerArea.forEach(function(area){
         if (area[1] - area[0] < 5 || area[3] - area[2] < 5) {
             return;
         }
