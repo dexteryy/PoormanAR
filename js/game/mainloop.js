@@ -1,6 +1,6 @@
 define([
   'mo/lang'
-, 'jquery'
+, 'jquery' // useless
 ], function(_, $) {
   window.requestAnimationFrame = (function(){
     return  window.requestAnimationFrame ||
@@ -42,13 +42,18 @@ define([
   , isRunning: function() {
       return !!this.timer
     }
+  , preUpdate: function() {}
+  , preDraw: function() {}
   , tick: function() {
       var now = Date.now()
-        , dt = now - this.lasttime
+        , dt = (now - this.lasttime) / 1000
       this.lasttime = now
 
+      this.preUpdate(dt)
+      this.preDraw()
+
       this.sprits.forEach(function(sprit, i) {
-        sprit.update(dt / 1000)
+        sprit.update(dt)
         sprit.draw()
       })
     }

@@ -3,7 +3,51 @@ define([
 , 'jquery'
 , './game'
 ], function(_, $, game) {
-  function Money() {
+
+  var ROOT = '../../'
+  var images = {}
+  initImageSets()
+
+  function initImageSets() {
+    var roles = ['james', 'mantou', 'rabbit']
+    images = {}
+    /*
+     * images = {
+     *   james: {
+     *      poor: {
+     *        src: ''
+     *      , image: ''
+     *      , loaded: ''
+     *      }
+     *   }
+     * }
+     *
+     */
+    roles.forEach(function(name){
+      initImageConfig(name)
+    })
+  }
+
+  function initImageConfig(name) {
+    var states = ['poor', 'normal', 'rich', 'gold']
+    var image = images[name] = {}
+    states.forEach(function(e, i) {
+      var state = image[e] = {}
+      state.src = ROOT + 'pics/' + name + '-' + e + '.png'
+
+      state.image = new Image()
+      state.image.onload = function() {
+        state.loaded = true
+      }
+      state.image.src = state.src
+    })
+  }
+
+  function Money(opts) {
+    opts = opts || {}
+    this.roleName = opts.role || 'james'
+    this.role = images[this.roleName]
+
     this.x = game.stage.width / 2
     this.y = -30
     this.saveLastPos()
@@ -15,9 +59,8 @@ define([
     this.vx = 0
     this.vy = 50
     this.g = 1.008
-    this.elem = $('<span>', {
-      'class': 'money'
-    }).appendTo(game.stage.elem)
+
+    this.initDrawing()
   }
 
   _.mix(Money.prototype, {
@@ -31,17 +74,30 @@ define([
         this.destroy()
       }
     }
+  , initDrawing: function() {
+      //this.elem = $('<span>', {
+        //'class': 'money'
+      //}).appendTo(game.stage.elem)
+    }
+  //, draw: function() {
+      //if (!this.elem) {return}
+      //this.elem.css({
+        //left: this.x
+      //, top: this.y
+      //})
+    //}
   , draw: function() {
-      if (!this.elem) {return}
-      this.elem.css({
-        left: this.x
-      , top: this.y
-      })
+      if (!this.role.rich.loaded) {return}
+      var image = this.role.rich.image
+
+      game.drawImage(image
+        , this.x, this.y
+        , image.width, image.height)
     }
   , destroy: function() {
-      if (!this.elem) {return}
-      this.elem.remove()
-      this.elem = null
+      //if (!this.elem) {return}
+      //this.elem.remove()
+      //this.elem = null
     }
   , saveLastPos: function() {
       this.lastX = this.x

@@ -63,7 +63,7 @@ define([
   }
 
   game.addSprit('player1', player1)
-  game.addSprit('player2', player2)
+  //game.addSprit('player2', player2)
 
   moneyEmitter.start()
   game.start()
