@@ -22,6 +22,7 @@ define([
 
   _.mix(Money.prototype, {
     update: function(dt) {
+      this.vx += 10 * (Math.random() - 0.5)
       this.vy *= this.g
       this.saveLastPos()
       this.setPosition(dt)
