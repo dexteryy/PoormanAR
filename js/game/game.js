@@ -36,15 +36,25 @@ define([
       //this.stage.ctx.drawImage.apply(this.stage.ctx, arguments)
       //this.stage.ctx.drawImage(arguments[0], arguments[1], arguments[2], arguments[3])
       this.stage.ctx.drawImage(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4])
+
     }
 
   , addSprit: function(name, sprit) {
-      this.sprits[name] = sprit
-      return this.mainLoop.addSprit(sprit)
+      if (typeof name == 'string') {
+        this.sprits[name] = sprit
+        return this.mainLoop.addSprit(sprit)
+      } else {
+        return this.mainLoop.addSprit(name)
+      }
     }
 
   , initScore: function() {
       this.score = 0
+    }
+
+  , random: function(arr) {
+      var i = ~~(Math.random() * arr.length)
+      return arr[i]
     }
   })
 

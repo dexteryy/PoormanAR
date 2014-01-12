@@ -2,7 +2,8 @@ define([
   'mo/lang'
 , 'jquery'
 , './game'
-], function(_, $, game) {
+, './explosion/explosion'
+], function(_, $, game, Explosion) {
 
   var ROOT = '../../'
   var images = {}
@@ -51,13 +52,15 @@ define([
     this.role = images[this.roleName]
 
     this.x = game.stage.width / 2
-    this.y = -30
+    this.y = -20
     this.saveLastPos()
 
     this.collisions = []
 
-    this.width = 30
-    this.height = 30
+    this.radius = 20
+    this.width = this.radius
+    this.height = this.radius
+
     this.vx = 0
     this.vy = 50
     this.g = 1.008
@@ -81,13 +84,6 @@ define([
         //'class': 'money'
       //}).appendTo(game.stage.elem)
     }
-  //, draw: function() {
-      //if (!this.elem) {return}
-      //this.elem.css({
-        //left: this.x
-      //, top: this.y
-      //})
-    //}
   , draw: function() {
       //if (!this.role.rich.loaded) {return}
       //var image = this.role.rich.image
@@ -97,7 +93,7 @@ define([
         //, image.width, image.height)
       var ctx = game.stage.ctx
       ctx.beginPath()
-      ctx.arc(this.x, this.y, 30, 0, TWO_PI )
+      ctx.arc(this.x, this.y, this.radius, 0, TWO_PI )
       ctx.fillStyle = '#fff600'
       ctx.fill()
     }
@@ -125,6 +121,7 @@ define([
         if(this.detectCollision(s)) {
           this.destroy()
           // Boom !
+          new Explosion({x: this.x, y: this.y, radius: this.radius})
           s.money += 10
         }
       }).bind(this))
