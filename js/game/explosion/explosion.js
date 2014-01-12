@@ -17,9 +17,11 @@ define([
 
       this.x = opts.x
       this.y = opts.y
+      this.vx = opts.vx * 0.2
+      this.vy = opts.vy * 0.6
       this.radius = opts.radius
 
-      this.frameCount = 10
+      this.frameCount = 50
 
       this.initDrawing()
     }
@@ -27,7 +29,13 @@ define([
     }
   , initDrawing: function() {
       for(var i = 0, ilen = this.frameCount; i < ilen; i ++) {
-        game.addSprit(new Fragment({ x: this.x, y: this.y , radius: this.radius}))
+        game.addSprit(new Fragment({
+          x: this.x
+        , y: this.y
+        , vx: this.vx
+        , vy: this.vy
+        , radius: this.radius
+        }))
       }
     }
   , draw: function() {

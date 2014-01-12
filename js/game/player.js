@@ -46,7 +46,7 @@ define([
 
 
   var levelMap = {
-    money: [-1, 50, 100, 200]
+    money: [-1, 50, 100, 500]
   , level: ['poor', 'normal', 'rich', 'gold']
   }
 
@@ -93,7 +93,8 @@ define([
     }
 
   , drawRole: function(image) {
-      game.drawImage(image
+      var ctx = this.curCtx || game.stage.ctx
+      ctx.drawImage(image
         , this.x - 60, this.y - 200
         , image.width, image.height)
     }
@@ -109,6 +110,9 @@ define([
   , setPosition: function(x, y) {
       this.x = x
       this.y = y
+    }
+  , collideTo: function() {
+      this.money += 10
     }
   , getLevel: function(money) {
       return levelMap.level[

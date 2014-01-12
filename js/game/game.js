@@ -9,6 +9,7 @@ define([
     this.sprits = {}
 
     var canvas = $('.game .canvas')
+      , bgCanvas = $('.game .canvas-bg')
     this.stage = {
       height: 720
     , width: 1024
@@ -16,10 +17,10 @@ define([
     , y: 0
     , elem: $('.game .stage')
     , ctx: canvas[0].getContext('2d')
+    , bgCtx: bgCanvas[0].getContext('2d')
     }
-    canvas.attr('height', this.stage.height)
-    canvas.attr('width', this.stage.width)
-
+    canvas.attr({height: this.stage.height, width: this.stage.width})
+    bgCanvas.attr({height: this.stage.height, width: this.stage.width})
   }
 
   _.mix(Game.prototype, {
@@ -32,20 +33,19 @@ define([
       this.stage.ctx.clearRect(0, 0, this.stage.width, this.stage.height)
     }
 
-  , drawImage: function() {
-      //this.stage.ctx.drawImage.apply(this.stage.ctx, arguments)
-      //this.stage.ctx.drawImage(arguments[0], arguments[1], arguments[2], arguments[3])
-      this.stage.ctx.drawImage(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4])
-
-    }
-
   , addSprit: function(name, sprit) {
       if (typeof name == 'string') {
         this.sprits[name] = sprit
+        sprit.curCtx = this.stage.ctx
         return this.mainLoop.addSprit(sprit)
       } else {
         return this.mainLoop.addSprit(name)
       }
+    }
+
+  , addBgSprit: function(sprit) {
+      sprit.curCtx = this.stage.bgCtx
+      sprit.draw()
     }
 
   , initScore: function() {

@@ -121,10 +121,21 @@ define([
         if(this.detectCollision(s)) {
           this.destroy()
           // Boom !
-          new Explosion({x: this.x, y: this.y, radius: this.radius})
-          s.money += 10
+          this.collideTo(s)
         }
       }).bind(this))
+    }
+  , collideTo: function(s) {
+      new Explosion({
+        x: this.x
+      , y: this.y
+      , vx: s.vx - this.vx
+      , vy: s.vy - this.vy
+      , radius: this.radius * 1.4
+      })
+      if (s.collideTo) {
+        s.collideTo(this)
+      }
     }
   , detectCollision: function(sprit) {
       return (sprit.x < this.x + this.width / 2
