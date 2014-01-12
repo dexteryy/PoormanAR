@@ -27,10 +27,6 @@ define([
     roles.forEach(function(name){
       initImageConfig(name)
     })
-
-    // load image
-    for(var name in images) {
-    }
   }
 
   function initImageConfig(name) {
@@ -64,7 +60,7 @@ define([
     this.lastx = 0
     this.lasty = 0
 
-    this.width = 80
+    this.width = 185
     this.height = 30
 
     this.money = 0
@@ -93,8 +89,12 @@ define([
       if (!this.role[this.level].loaded) {return}
       var image = this.role[this.level].image
 
+      this.drawRole(image)
+    }
+
+  , drawRole: function(image) {
       game.drawImage(image
-        , this.x, this.y
+        , this.x - 60, this.y - 200
         , image.width, image.height)
     }
   , drawElem: function() {

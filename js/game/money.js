@@ -43,6 +43,8 @@ define([
     })
   }
 
+  var TWO_PI = 6.283185307179586
+
   function Money(opts) {
     opts = opts || {}
     this.roleName = opts.role || 'james'
@@ -87,12 +89,17 @@ define([
       //})
     //}
   , draw: function() {
-      if (!this.role.rich.loaded) {return}
-      var image = this.role.rich.image
+      //if (!this.role.rich.loaded) {return}
+      //var image = this.role.rich.image
 
-      game.drawImage(image
-        , this.x, this.y
-        , image.width, image.height)
+      //game.drawImage(image
+        //, this.x, this.y
+        //, image.width, image.height)
+      var ctx = game.stage.ctx
+      ctx.beginPath()
+      ctx.arc(this.x, this.y, 30, 0, TWO_PI )
+      ctx.fillStyle = '#fff600'
+      ctx.fill()
     }
   , destroy: function() {
       //if (!this.elem) {return}
