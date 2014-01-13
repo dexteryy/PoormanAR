@@ -2,9 +2,10 @@ define([
   'mo/lang'
 , 'jquery'
 , './game'
+, './dashboard'
 , './player'
 , './money_emitter'
-], function(_, $, game, Player, MoneyEmitter) {
+], function(_, $, game,dashboard, Player, MoneyEmitter) {
 
   // Sprits
   var player1 = new Player()
@@ -64,6 +65,8 @@ define([
 
   game.addSprit('player1', player1)
   //game.addSprit('player2', player2)
+
+  dashboard.addPlayer(player1)
 
   moneyEmitter.start()
   game.start()

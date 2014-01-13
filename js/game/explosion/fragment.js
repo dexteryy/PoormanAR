@@ -44,8 +44,8 @@ define([
       this.vy *= this.drag
 
       this.theta += (Math.random() - 0.5) * this.wander
-      this.vx += Math.sin( this.theta ) * 0.1
-      this.vy += Math.cos( this.theta ) * 0.1
+      this.vx += Math.sin( this.theta ) * 30
+      this.vy += Math.cos( this.theta ) * 30
       this.radius *= 0.96
 
       if (this.lock()) {

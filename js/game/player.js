@@ -7,7 +7,8 @@ define([
 
   var ROOT = '../../'
   var images = {}
-  initImageSets()
+  var states = ['poor-0', 'poor-1', 'well-0', 'well-1'
+        , 'rich-0', 'rich-1', 'gold-0', 'gold-1']
 
   function initImageSets() {
     var roles = ['james', 'mantou', 'rabbit']
@@ -30,7 +31,6 @@ define([
   }
 
   function initImageConfig(name) {
-    var states = ['poor', 'normal', 'rich', 'gold']
     var image = images[name] = {}
     states.forEach(function(e, i) {
       var state = image[e] = {}
@@ -44,10 +44,11 @@ define([
     })
   }
 
+  initImageSets()
 
   var levelMap = {
-    money: [-1, 50, 100, 500]
-  , level: ['poor', 'normal', 'rich', 'gold']
+    money: [-1, 200, 500, 100]
+  , level: ['poor', 'well', 'rich', 'gold']
   }
 
   function Player(opts) {
@@ -80,19 +81,20 @@ define([
       this.lasty = this.y
     }
   , initDrawing: function() {
-      //this.elem = $('<span>', {
-        //'class': 'player'
-      //}).appendTo(game.stage.elem)
     }
+  , runStep: 0
   , draw: function() {
-      //this.elem.attr('level', this.level)
-      if (!this.role[this.level].loaded) {return}
-      var image = this.role[this.level].image
+      var image
+      if (this.isRun()) {
+        image = this.role[this.level + '-' + ~~((this.runStep++ % 10) / 5)].image
+      } else {
+        image = this.role[this.level + '-0'].image
+      }
 
-      this.drawRole(image)
+      this.drawImage(image)
     }
 
-  , drawRole: function(image) {
+  , drawImage: function(image) {
       var ctx = this.curCtx || game.stage.ctx
       ctx.drawImage(image
         , this.x - 60, this.y - 200
@@ -120,6 +122,9 @@ define([
         .sort(function(a, b) { return a > b })
         .indexOf(money) - 1
       ]
+    }
+  , isRun: function() {
+      return (Math.abs(this.vx) + Math.abs(this.vy)) > 100
     }
   })
 
