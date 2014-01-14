@@ -7,6 +7,39 @@ define([
 
   var TWO_PI = 6.283185307179586
 
+  var ROOT = '../../'
+  var images = {}
+  function initImageSets() {
+    var roles = ['bitcoin']
+    images = {}
+    /*
+     * images = {
+     *   bitcoin: {
+     *      src: ''
+     *    , image: ''
+     *    , loaded: ''
+     *   }
+     * }
+     *
+     */
+    roles.forEach(function(name){
+      initImageConfig(name)
+    })
+  }
+
+  function initImageConfig(name) {
+    var image = images[name] = {}
+    image.src = ROOT + 'pics/' + name + '.png'
+
+    image.image = new Image()
+    image.image.onload = function() {
+      image.loaded = true
+    }
+    image.image.src = image.src
+  }
+
+  initImageSets()
+
   function Money(opts) {
     opts = opts || {}
 
@@ -16,9 +49,10 @@ define([
 
     this.collisions = []
 
-    this.radius = 20
-    this.width = this.radius
-    this.height = this.radius
+    var wander = Math.random() * 30 - 15
+    this.radius = (40 + wander) / 2
+    this.width = this.radius * 2
+    this.height = this.radius * 2
 
     this.vx = 0
     this.vy = 50
@@ -41,11 +75,15 @@ define([
   , initDrawing: function() {
     }
   , draw: function() {
-      var ctx = game.stage.ctx
-      ctx.beginPath()
-      ctx.arc(this.x, this.y, this.radius, 0, TWO_PI )
-      ctx.fillStyle = '#fff600'
-      ctx.fill()
+      var image = images.bitcoin.image
+      this.drawImage(image)
+    }
+  , drawImage: function(image) {
+      var ctx = this.curCtx || game.stage.ctx
+      ctx.drawImage(image
+        , this.x, this.y
+        , this.width
+        , this.height)
     }
   , destroy: function() {
     }

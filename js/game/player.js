@@ -11,7 +11,7 @@ define([
         , 'rich-0', 'rich-1', 'gold-0', 'gold-1']
 
   function initImageSets() {
-    var roles = ['james', 'mantou', 'rabbit']
+    var roles = ['james', 'mantou', 'rabbit', 'bear']
     images = {}
     /*
      * images = {
@@ -53,7 +53,7 @@ define([
 
   function Player(opts) {
     opts = opts || {}
-    this.roleName = opts.role || 'james'
+    this.roleName = opts.role || 'bear'
     this.role = images[this.roleName]
 
     this.x = 0

@@ -36,10 +36,12 @@
 .player-box {
   position: absolute;
   right: 0;
-  width: 300px;
+  width: 200px;
   margin: 10px 5px;
-  border-radius: 3px;
-  background: #222;
+  background: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 10px;
+  border-bottom: 8px solid #777;
+  border-bottom-left-radius: 3px 8px;
+  border-bottom-right-radius: 3px 8px;
 }
