@@ -1,4 +1,3 @@
-
 define([
   'mo/lang'
 , 'jquery'
@@ -23,7 +22,6 @@ define([
      *      }
      *   }
      * }
-     *
      */
     roles.forEach(function(name){
       initImageConfig(name)
