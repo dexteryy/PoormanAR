@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>@@appname</title>
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<link href="css/main.css" rel="stylesheet">
+<link rel="stylesheet" href="css/game.css">
+<link rel="stylesheet" href="css/reset.css">
+</head>
+<body>
+
+<div class="player">
+    <!--<canvas id="game"></canvas>-->
+    <div class="game">
+      <div class="stage"></div>
+      <canvas class="canvas-bg"></canvas>
+      <canvas class="canvas"></canvas>
+      <div class="overlay">
+        <div class="dashboard">
+        </div>
+      </div>
+    </div>
+</div>
+
+<template id="player-board">
+  <div class="player-box">
+    <div class="avatar">
+      <img src="" alt="">
+    </div>
+    <div class="info">
+      <div class="name"></div>
+      <ul class="status">
+        <li>Score: <span class="score"></span></li>
+        <li>Level: <span class="level"></span></li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script src="js/vendor/oz.js"></script>
+<script src="js/game/main.js"></script>
+<script>
+  require.config({
+      baseUrl: 'js/vendor/'
+  })
+
+  require(['../game/main'], function() {})
+</script>
+
+</body>
+</html>

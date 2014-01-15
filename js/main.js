@@ -6,21 +6,25 @@ require.config({
 require([
     'mo/lang',
     'dollar',
-    'mo/domready'
+    'mo/domready',
+    '../game/main'
 ], function(_, $){
+
+window.playerArea = window.playerArea || []
 
 var cav1 = $('#frame'),
     cav2 = $('#overlay'),
     ctx1 = cav1[0].getContext("2d"),
     ctx2 = cav2[0].getContext("2d"),
     video = $('#cam'),
-    opt_r = 100, 
-    opt_g = 178, 
-    opt_b = 90, 
-    opt_rg = -45, 
-    opt_gb = 80, 
-    opt_rb = 40, 
+    opt_r = 100,
+    opt_g = 178,
+    opt_b = 90,
+    opt_rg = -45,
+    opt_gb = 80,
+    opt_rb = 40,
     opt_t = 40,
+    player_cnt = 2,
     w, h;
 
 navigator.webkitGetUserMedia({
@@ -112,7 +116,7 @@ function detect(){
                 j = 0;
                 k = areas.length;
                 for (; j < k; j++) {
-                    if (last[0] < areas[j][1] 
+                    if (last[0] < areas[j][1]
                             && last[1] > areas[j][0]
                             && last[3] - areas[j][3] < 5) {
                         if (last[0] < areas[j][0]) {
@@ -141,15 +145,21 @@ function detect(){
         //pixels[y][x] = [data[i], data[i + 1], data[i + 2], data[i + 3]];
     }
     //console.info(+new Date() - t);
-    ctx2.putImageData(imagedata, 0, 0);
-    //ctx2.clearRect(0, 0, w, h);
+    //ctx2.putImageData(imagedata, 0, 0);
+    ctx2.clearRect(0, 0, w, h);
     ctx2.lineWidth = 5;
     ctx2.strokeStyle = "#0066ff";
-    areas.forEach(function(area){
+    areasS = areas.map(function(e) {
+      return (e[1] - e[0]) * (e[3] * e[2])
+    })
+
+    playerArea.length = 0
+    playerArea.push(areas[areasS.indexOf(Math.max.apply(Math, areasS))])
+    playerArea.forEach(function(area){
         if (area[1] - area[0] < 5 || area[3] - area[2] < 5) {
             return;
         }
-        ctx2.strokeRect(area[0], area[2], 
+        ctx2.strokeRect(area[0], area[2],
             area[1] - area[0], area[3] - area[2]);
     });
     //console.info(imagedata.width, imagedata.height, w, h, pixels.length, pixels[0].length, pixels[pixels.length - 1].length);
@@ -162,7 +172,7 @@ function check(r, g, b){
             && Math.abs(g - opt_g) < opt_t
             && Math.abs(b - opt_b) < opt_t)
         || (r - g < 0 && Math.abs(r - g - opt_rg) < opt_t
-            && g - b > 0 && Math.abs(g - b - opt_gb) < opt_t 
+            && g - b > 0 && Math.abs(g - b - opt_gb) < opt_t
             && r - b > 0 && Math.abs(r - b - opt_rb) < opt_t);
 }
 
